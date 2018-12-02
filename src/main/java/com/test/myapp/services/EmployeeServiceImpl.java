@@ -44,11 +44,15 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public EmployeeBean getEmployee(Long empId) {
 		Employee emp = employeeDAO.getEmployee(empId);
 		EmployeeBean empBean = new EmployeeBean();
+		if(emp!=null) {
 		empBean.setAddress(emp.getAddress());
-		empBean.setDateOfBirth(dateFormat.format(emp.getDateOfBirth()));
+		if(emp.getDateOfBirth() != null) {
+			empBean.setDateOfBirth(dateFormat.format(emp.getDateOfBirth().getTime()));
+		}
 		empBean.setEmpId(emp.getEmpId());
 		empBean.setEmpName(emp.getEmpName());
 		empBean.setMobileNumber(emp.getMobileNumber());
+		}
 		return empBean;
 	}
 
