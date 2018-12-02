@@ -15,13 +15,14 @@ import com.test.myapp.DAO.EmployeeDAO;
 import com.test.myapp.models.Employee;
 import com.test.myapp.models.EmployeeBean;
 
+
 @Service
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Autowired
 	private EmployeeDAO employeeDAO;
-	private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY"); 
+	private static final DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY"); 
 	@Override
 	public List<EmployeeBean> getAllEmployees(String employeeName) {
 		List<EmployeeBean> employees = new ArrayList<EmployeeBean>();
@@ -63,7 +64,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 		empBean.setAddress(employee.getAddress());
 		if(employee.getDateOfBirth() != null) {
 			Calendar cal = Calendar. getInstance();
-			cal.setTime(dateFormat.parse(employee.getDateOfBirth()));
+			String[] dates = employee.getDateOfBirth().split("-");
+			cal.set(Integer.parseInt(dates[2]),Integer.parseInt(dates[1]),Integer.parseInt(dates[0]));
 			empBean.setDateOfBirth(cal);
 		}
 		empBean.setEmpName(employee.getEmpName());
@@ -78,7 +80,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 		empBean.setAddress(employee.getAddress());
 		if(employee.getDateOfBirth() != null) {
 			Calendar cal = Calendar. getInstance();
-			cal.setTime(dateFormat.parse(employee.getDateOfBirth()));
+			String[] dates = employee.getDateOfBirth().split("-");
+			cal.set(Integer.parseInt(dates[2]),Integer.parseInt(dates[1]),Integer.parseInt(dates[0]));
 			empBean.setDateOfBirth(cal);
 		}
 		empBean.setEmpId(employee.getEmpId());

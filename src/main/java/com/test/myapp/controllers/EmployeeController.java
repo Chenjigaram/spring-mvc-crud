@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,7 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/employee", method = RequestMethod.POST)
-	public Long saveEmployee(EmployeeBean employee) {
+	public Long saveEmployee(@RequestBody EmployeeBean employee) {
 		System.out.println(employee.getAddress()+" "+employee.getEmpName());
 		Long out = null;
 		try {
@@ -40,8 +41,8 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/employee", method = RequestMethod.PUT)
-	public Boolean updateEmployee(EmployeeBean employee) {
-		System.out.println(employee.getAddress()+" "+employee.getEmpName());
+	public Boolean updateEmployee(@RequestBody EmployeeBean employee) {
+		System.out.println(employee.getAddress()+" "+employee.getDateOfBirth());
 		try {
 			employeeService.updateEmployee(employee);
 		} catch (ParseException e) {
