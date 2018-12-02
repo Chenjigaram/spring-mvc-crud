@@ -43,8 +43,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public EmployeeBean getEmployee(Long empId) {
 		Employee emp = employeeDAO.getEmployee(empId);
-		EmployeeBean empBean = new EmployeeBean();
+		EmployeeBean empBean = null;
 		if(emp!=null) {
+			empBean = new EmployeeBean();
 		empBean.setAddress(emp.getAddress());
 		if(emp.getDateOfBirth() != null) {
 			empBean.setDateOfBirth(dateFormat.format(emp.getDateOfBirth().getTime()));
