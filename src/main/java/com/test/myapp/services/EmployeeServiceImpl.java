@@ -65,7 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		if(employee.getDateOfBirth() != null) {
 			Calendar cal = Calendar. getInstance();
 			String[] dates = employee.getDateOfBirth().split("-");
-			cal.set(Integer.parseInt(dates[2]),Integer.parseInt(dates[1]),Integer.parseInt(dates[0]));
+			cal.set(Integer.parseInt(dates[2]),Integer.parseInt(dates[1])-1,Integer.parseInt(dates[0]));
 			empBean.setDateOfBirth(cal);
 		}
 		empBean.setEmpName(employee.getEmpName());
