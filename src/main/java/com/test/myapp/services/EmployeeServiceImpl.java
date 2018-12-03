@@ -1,10 +1,5 @@
 package com.test.myapp.services;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +17,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Autowired
 	private EmployeeDAO employeeDAO;
-	private static final DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY"); 
 	@Override
 	public List<EmployeeBean> getAllEmployees(String employeeName) {
 		List<EmployeeBean> employees = new ArrayList<EmployeeBean>();
@@ -30,9 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		for(Employee emp:empEntitties) {
 			EmployeeBean empBean = new EmployeeBean();
 			empBean.setAddress(emp.getAddress());
-			if(emp.getDateOfBirth() != null) {
-				empBean.setDateOfBirth(dateFormat.format(emp.getDateOfBirth().getTime()));
-			}
+			empBean.setDateOfBirth(emp.getDateOfBirth());
 			empBean.setEmpId(emp.getEmpId());
 			empBean.setEmpName(emp.getEmpName());
 			empBean.setMobileNumber(emp.getMobileNumber());
@@ -48,9 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		if(emp!=null) {
 			empBean = new EmployeeBean();
 		empBean.setAddress(emp.getAddress());
-		if(emp.getDateOfBirth() != null) {
-			empBean.setDateOfBirth(dateFormat.format(emp.getDateOfBirth().getTime()));
-		}
+		empBean.setDateOfBirth(emp.getDateOfBirth());
 		empBean.setEmpId(emp.getEmpId());
 		empBean.setEmpName(emp.getEmpName());
 		empBean.setMobileNumber(emp.getMobileNumber());
@@ -59,31 +49,21 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public Long saveEmployee(EmployeeBean employee) throws ParseException {
+	public Long saveEmployee(EmployeeBean employee) {
 		Employee empBean = new Employee();
 		empBean.setAddress(employee.getAddress());
-		if(employee.getDateOfBirth() != null) {
-			Calendar cal = Calendar. getInstance();
-			String[] dates = employee.getDateOfBirth().split("-");
-			cal.set(Integer.parseInt(dates[2]),Integer.parseInt(dates[1])-1,Integer.parseInt(dates[0]));
-			empBean.setDateOfBirth(cal);
-		}
+		empBean.setDateOfBirth(employee.getDateOfBirth());
 		empBean.setEmpName(employee.getEmpName());
 		empBean.setMobileNumber(employee.getMobileNumber());
 		return (Long) employeeDAO.saveEmployee(empBean);
 	}
 
 	@Override
-	public void updateEmployee(EmployeeBean employee) throws ParseException {
+	public void updateEmployee(EmployeeBean employee){
 		
 		Employee empBean = new Employee();
 		empBean.setAddress(employee.getAddress());
-		if(employee.getDateOfBirth() != null) {
-			Calendar cal = Calendar. getInstance();
-			String[] dates = employee.getDateOfBirth().split("-");
-			cal.set(Integer.parseInt(dates[2]),Integer.parseInt(dates[1])-1,Integer.parseInt(dates[0]));
-			empBean.setDateOfBirth(cal);
-		}
+		empBean.setDateOfBirth(employee.getDateOfBirth());
 		empBean.setEmpId(employee.getEmpId());
 		empBean.setEmpName(employee.getEmpName());
 		empBean.setMobileNumber(employee.getMobileNumber());

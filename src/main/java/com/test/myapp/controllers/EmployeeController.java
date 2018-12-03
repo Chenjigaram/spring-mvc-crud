@@ -1,6 +1,5 @@
 package com.test.myapp.controllers;
 
-import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,26 +29,13 @@ public class EmployeeController {
 	@RequestMapping(value = "/employee", method = RequestMethod.POST)
 	public Long saveEmployee(@RequestBody EmployeeBean employee) {
 		System.out.println(employee.getAddress()+" "+employee.getEmpName());
-		Long out = null;
-		try {
-			out= employeeService.saveEmployee(employee);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return out;
+		return employeeService.saveEmployee(employee);
 	}
 
 	@RequestMapping(value = "/employee", method = RequestMethod.PUT)
 	public Boolean updateEmployee(@RequestBody EmployeeBean employee) {
 		System.out.println(employee.getAddress()+" "+employee.getDateOfBirth());
-		try {
-			employeeService.updateEmployee(employee);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
+		employeeService.updateEmployee(employee);
 		return true;
 		
 	}
