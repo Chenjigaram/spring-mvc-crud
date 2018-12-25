@@ -27,6 +27,8 @@
 		 <property name="annotatedClasses">
           <list>
               <value>com.test.myapp.models.Employee</value>
+              <value>com.test.myapp.models.Department</value>
+              <value>com.test.myapp.models.Address</value>
           </list>
       </property>
 		<property name="hibernateProperties">

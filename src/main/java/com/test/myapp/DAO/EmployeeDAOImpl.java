@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.test.myapp.models.Department;
 import com.test.myapp.models.Employee;
 
 @Repository
@@ -50,6 +51,17 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		emp.setEmpId(empId);
 		getSess().delete(emp);
 		
+	}
+
+	@Override
+	public List<Department> getAllEmployeesFDe(String departmentName) {
+		// TODO Auto-generated method stub
+		return getSess().createQuery("from Department d where d.departmentName LIKE '%"+departmentName+"%'").list();
+	}
+	@Override
+	public Department getDepartment(Long deptId) {
+		// TODO Auto-generated method stub
+		return getSess().get(Department.class, deptId);
 	}
 
 }

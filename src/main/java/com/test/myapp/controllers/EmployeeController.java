@@ -1,7 +1,7 @@
 package com.test.myapp.controllers;
 
 import java.util.List;
-
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,24 +17,31 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	@RequestMapping(value = "/employee/all/{employeeName}", method = RequestMethod.GET)
-	public List<EmployeeBean> getAllEmployees(@PathVariable String employeeName) {
+	public List<Map<String,Object>> getAllEmployees(@PathVariable String employeeName) {
 		return employeeService.getAllEmployees(employeeName);
 	}
 
 	@RequestMapping(value = "/employee/{empId}", method = RequestMethod.GET)
-	public EmployeeBean getEmployee(@PathVariable Long empId) {
+	public Map<String,Object> getEmployee(@PathVariable Long empId) {
 		return employeeService.getEmployee(empId);
+	}
+	@RequestMapping(value = "/department/all/{departmentName}", method = RequestMethod.GET)
+	public List<Map<String,Object>> getAlDepartments(@PathVariable String departmentName) {
+		return employeeService.getAllEmployeesFDe(departmentName);
+	}
+
+	@RequestMapping(value = "/department/{deptId}", method = RequestMethod.GET)
+	public Map<String,Object> getDepartment(@PathVariable Long deptId) {
+		return employeeService.getDepartment(deptId);
 	}
 
 	@RequestMapping(value = "/employee", method = RequestMethod.POST)
-	public Long saveEmployee(@RequestBody EmployeeBean employee) {
-		System.out.println(employee.getAddress()+" "+employee.getEmpName());
+	public Long saveEmployee(@RequestBody Map<String,Object> employee) {
 		return employeeService.saveEmployee(employee);
 	}
 
 	@RequestMapping(value = "/employee", method = RequestMethod.PUT)
-	public Boolean updateEmployee(@RequestBody EmployeeBean employee) {
-		System.out.println(employee.getAddress()+" "+employee.getDateOfBirth());
+	public Boolean updateEmployee(@RequestBody Map<String,Object> employee) {
 		employeeService.updateEmployee(employee);
 		return true;
 		
